@@ -1,0 +1,98 @@
+# Build artifacts
+target/
+build/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+nbactions.xml
+nb-configuration.xml
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+logs/
+*.log.*
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Docker files (except Dockerfile)
+docker-compose.override.yml
+docker-compose.prod.yml
+Dockerfile.dev
+
+# Maven/Gradle
+.mvn/
+mvnw
+mvnw.cmd
+gradle/
+gradlew
+gradlew.bat
+
+# Node.js (if you have frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Documentation
+README.md
+*.pdf
+*.doc
+*.docx
+
+# Test files
+*.test
+*.spec
+coverage/
+
+# Configuration files (except application.yml)
+*.properties
+!src/main/resources/application.yml
+!src/main/resources/application-*.yml
+
+# Keep these - they're needed for Docker build
+!pom.xml
+!mvnw
+!mvnw.cmd
+!src/main/resources/
+!src/main/java/
