@@ -1,9 +1,9 @@
 # Spring Boot Microservice Docker Template
-# Team Standards: Java 17, Non-root user, Health checks
+# Team Standards: Java 21, Non-root user, Health checks
 
 #------------THE BUILDER------------
-#Starts the first build stage, using the full JDK 17 (Java Development Kit) for compiling, and names this stage builder.
-FROM openjdk:17-jdk-slim AS builder
+#Starts the first build stage, using the full JDK 21 (Java Development Kit) for compiling, and names this stage builder.
+FROM eclipse-temurin:21-jdk AS builder
 
 # Install Maven from system repositories
 RUN apt-get update && apt-get install -y maven
@@ -17,7 +17,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 #------------THE RUNNER------------
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:21-jre
 RUN adduser --system --group spring
 USER spring
 
