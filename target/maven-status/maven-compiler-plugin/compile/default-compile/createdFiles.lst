@@ -1,0 +1,3 @@
+com/microservice/userservice/repository/UserRepository.class
+com/microservice/userservice/model/User.class
+com/microservice/userservice/UserApplication.class

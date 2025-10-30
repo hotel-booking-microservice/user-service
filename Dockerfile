@@ -2,18 +2,19 @@
 # Team Standards: Java 21, Non-root user, Health checks
 
 #------------THE BUILDER------------
-#Starts the first build stage, using the full JDK 21 (Java Development Kit) for compiling, and names this stage builder.
+# Starts the first build stage, using JDK 21 for compiling, and names this stage builder.
 FROM eclipse-temurin:21-jdk AS builder
 
 # Install Maven from system repositories
 RUN apt-get update && apt-get install -y maven
 
-#Sets the working directory inside the container for subsequent commands.
+# Set working directory inside the container
 WORKDIR /app
-#copy entire local project source code into the container
+
+# Copy entire local project source code into the container
 COPY . .
-#Executes the Maven build command to compile the Java code and package it into a runnable .jar file, skipping the slower unit tests.
-# Build using system Maven (consistent across all environments)
+
+# Build the Spring Boot JAR using Maven (skip tests for faster build)
 RUN mvn clean package -DskipTests
 
 #------------THE RUNNER------------
@@ -25,12 +26,15 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 #-----------CONFIGURATION AND EXECUTION-------
-#this tells Docker how to monitor the container's status. It checks every 30 seconds, with a 3-second timeout.
+# Health check endpoint
 HEALTHCHECK --interval=30s --timeout=3s \
   CMD curl -f http://localhost:8080/actuator/health || exit 1
 
-#this declares that the application inside the container listens on port 8080. (This is informational; external port mapping is done with the docker run command).
+# Expose port 8080
 EXPOSE 8080
 
-#Defines the main command that runs when the container starts. It executes the Java application in this case.
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Set default active Spring profile (MySQL)
+ENV SPRING_PROFILES_ACTIVE=mysql
+
+# Main command: run the application
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=${SPRING_PROFILES_ACTIVE}"]
