@@ -1,4 +1,4 @@
-package com.microservice.userservice.user.model;
+package com.microservice.userservice.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +43,11 @@ public class User {
     private String phone;
 
     @Column(nullable = false)
+    private String role = "USER";  // default role
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
 
     @PrePersist
     protected void onCreate() {
